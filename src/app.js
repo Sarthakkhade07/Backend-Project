@@ -14,4 +14,18 @@ app.use(express.urlencoded({extended: true, limit: "16kb"}))          // accepct
 app.use(express.static("public"))          // to store the file pdf's into server
 app.use(cookieParser())                     // setup the cookie parser
 
+
+// import router
+
+import userRouter from './routes/user.routes.js'
+
+//route declaration
+
+// app.use("/users", userRouter)    http://localhost:8000/users/register
+                                // http://localhost:8000/users/login      it depends on what method you have defined in the route
+
+                                
+//standard api should be written as
+app.use("/api/v1/users", userRouter)
+
 export { app }
