@@ -51,7 +51,7 @@ const userSchema = new mongoose.Schema({
 userSchema.pre("save", async function (next) {
     if(!this.isModified("password")) return next();       // to avoid bydefault encrypt the password and save the password everytuime when we do change in hte user model
 
-    this.password = bcrypt.hash(this.password, 10)
+    this.password = await bcrypt.hash(this.password, 10)
     next()
 })
 
@@ -80,7 +80,7 @@ userSchema.methods.generateRefreshToken = async function () {
         },
         process.env.REFRESH_TOKEN_SECRET,
         {
-            expiresIn: process.env.REFRESH_TOKEN_EXPIRY
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRY
         }
     )
 }
